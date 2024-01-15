@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
-export default function Login() {
+ const Login = ()=> {
  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -71,3 +71,5 @@ export default function Login() {
     )
   }
   
+
+  export default Login;
