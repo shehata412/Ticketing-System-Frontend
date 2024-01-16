@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
  const Login = ()=> {
@@ -8,6 +9,8 @@ import axios from 'axios';
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,6 +21,7 @@ import axios from 'axios';
     });
     setErrorMessage(null);
     Cookies.set('token', response.data.token, { expires: 30 });
+    navigate('/tickets');
     console.log(response);
   } catch (err) {
     setErrorMessage('Incorrect username or password');
@@ -31,10 +35,10 @@ import axios from 'axios';
             <div className="w-full max-w-xs">
               <form className="bg-transparent px-8 pt-6 pb-8 mb-4">
                 <div className="mb-4">
-                  <img src="/mts.png" alt="Logo" class="mx-auto h-30 w-30" />
+                  <img src="/mts.png" alt="Logo" className="mx-auto h-30 w-30" />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-white text-sm font-bold mb-2" for="username">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="username">
                     Username
                   </label>
                   <input
@@ -46,7 +50,7 @@ import axios from 'axios';
                   />
                 </div>
                 <div className="mb-6">
-                  <label className="block text-white text-sm font-bold mb-2" for="password">
+                  <label className="block text-white text-sm font-bold mb-2" htmlFor="password">
                     Password
                   </label>
                   <input
