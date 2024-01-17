@@ -1,16 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {useNavigate} from 'react-router-dom';
 
 const CreateTicket = () => {
+  const [priority,setPriority] = useState('low');
+  const navigate = useNavigate();
     return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4">
-        <img src="/mts.png" alt="Logo" class="mx-auto h-24 w-24" />
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute left-4 top-4"
+        onClick={() => navigate('/tickets')}>
+          Back
+          </button>
+        <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />
         <h1 className="text-2xl font-bold mb-4">Create Ticket</h1>
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md ">
   <form className="space-y-4">
     <div className="space-y-2">
       <label
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        for="title"
+        htmlFor="title"
       >
         Title
       </label>
@@ -24,7 +31,7 @@ const CreateTicket = () => {
     <div className="space-y-2">
       <label
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        for="description"
+        htmlFor="description"
       >
         Description
       </label>
@@ -38,7 +45,7 @@ const CreateTicket = () => {
     <div className="space-y-2">
       <label
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        for="priority"
+        htmlFor="priority"
       >
         Priority
       </label>
@@ -60,9 +67,9 @@ const CreateTicket = () => {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="h-4 w-4 opacity-50"
           aria-hidden="true"
         >
@@ -70,8 +77,10 @@ const CreateTicket = () => {
         </svg>
       </button>
       <select
+        value={priority}
+        onChange={e=> setPriority(e.target.value)}
         aria-hidden="true"
-        tabindex="-1"
+        tabIndex="-1"
         style={{
             position: "absolute", 
             border: "0px", 
@@ -85,7 +94,7 @@ const CreateTicket = () => {
             overflowWrap: "normal"
           }}
       >
-        <option value="low" selected="">
+        <option value="low">
           Low
         </option>
         <option value="medium">Medium</option>
@@ -95,7 +104,7 @@ const CreateTicket = () => {
     <div className="space-y-2">
       <label
         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        for="attachment"
+        htmlFor="attachment"
       >
         Attachment
       </label>

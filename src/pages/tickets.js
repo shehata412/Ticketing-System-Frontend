@@ -4,11 +4,10 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 
-const token = Cookies.get('token');
-if(!token) window.location.href = '/';
 
-const fetchTickets = async (setTickets) => {
+const fetchTickets = async (setTickets, navigate) => {
     try{
+        const token = Cookies.get('token');
         const response = await axios.get('http://localhost:8000/tickets', {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -16,18 +15,22 @@ const fetchTickets = async (setTickets) => {
         });
         setTickets(response.data);
         console.log(response);
-    } catch (err) {
-        console.log(err);
+    }catch (err) {
+      if (err.response && err.response.status === 401) { // 401 Unauthorized
+        navigate('/');
+      } else {
+        console.error(err);
+      }
     }
-}
+  }
 
  const Tickets = ()=>{
+    const navigate =  useNavigate();
     const [tickets, setTickets] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
 
-    const PER_PAGE = 2;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
-    const navigate = new useNavigate();
 
     const handleCreateTicket = () => {
       navigate('/createticket');
@@ -48,10 +51,11 @@ const fetchTickets = async (setTickets) => {
     };
 
     useEffect(() => {
-        fetchTickets(setTickets, currentPage, PER_PAGE);   
-    }, [currentPage]);
-    
-    const currentPageData = tickets.slice(offset, offset + PER_PAGE);
+        fetchTickets(setTickets, navigate);   
+    }, [currentPage, navigate]);
+
+    const sortedTickets = [...tickets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    const currentPageData = sortedTickets.slice(offset, offset + PER_PAGE);
   return (
     <div className="container mx-auto px-4 py-6">
      <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />   

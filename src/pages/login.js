@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
   useEffect(()=>{
       const token = Cookies.get('token');
       if (token) navigate('/tickets');
-     },[])
+     },[navigate])
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
