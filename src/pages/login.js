@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,10 @@ import { useNavigate } from 'react-router-dom';
 
   const navigate = useNavigate();
 
+  useEffect(()=>{
+      const token = Cookies.get('token');
+      if (token) navigate('/tickets');
+     },[])
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
