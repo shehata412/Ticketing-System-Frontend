@@ -19,16 +19,16 @@ const CreateTicket = () => {
     }
     else{
       const token = cookie.get('token');
-      const data =  {
-        title: title,
-        description: description,
-        priority: priority,
-        attachment: attachment,
-        status: 'Reported'
-      }
+      const data = new FormData();
+      data.append('title', title);
+      data.append('description', description);
+      data.append('priority', priority);
+      data.append('attachment', attachment);
+      data.append('status', 'Reported');
       await axios.post('http://localhost:8000/ticket', data, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
       }
       })
       .then((response) => {
