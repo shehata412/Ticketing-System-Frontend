@@ -40,13 +40,27 @@ const fetchTickets = async (setTickets, navigate) => {
       navigate(`/ticket/${id}`);
     };
 
-    const handleDeleteTicket = (id) => {
+    const handleDeleteTicket = async (id) => {
       const confirmDelete = window.confirm('Are you sure you want to delete this ticket?');
       if(confirmDelete){
-        console.log('deleted' + id);
+        const token = Cookies.get('token');
+        try{
+        const response = await axios.delete(`http://localhost:8000/ticket/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        fetchTickets(setTickets, navigate);
+      }catch (err) {
+        if (err.response && err.response.status === 401) { // 401 Unauthorized
+          navigate('/');
+        } else {
+          console.error(err);
+        }
+      }
       }
       else{
-      console.log('cancelled');
+        return;
       }
     };
 
@@ -55,7 +69,7 @@ const fetchTickets = async (setTickets, navigate) => {
     }, [currentPage, navigate]);
 
     const sortedTickets = [...tickets].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    const currentPageData = sortedTickets.slice(offset, offset + PER_PAGE);
+    const currentPageData = sortedTickets.slice(offset, offset + PER_PAGE).reverse();
   return (
     <div className="container mx-auto px-4 py-6">
      <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />   
