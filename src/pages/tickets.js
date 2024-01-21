@@ -14,7 +14,6 @@ const fetchTickets = async (setTickets, navigate) => {
             }
         });
         setTickets(response.data);
-        console.log(response);
     }catch (err) {
       if (err.response && err.response.status === 401) { // 401 Unauthorized
         navigate('/');
@@ -50,6 +49,7 @@ const fetchTickets = async (setTickets, navigate) => {
             Authorization: `Bearer ${token}`
           }
         });
+        alert(response.data.msg);
         fetchTickets(setTickets, navigate);
       }catch (err) {
         if (err.response && err.response.status === 401) { // 401 Unauthorized
