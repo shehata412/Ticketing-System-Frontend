@@ -28,7 +28,7 @@ const fetchTickets = async (setTickets, navigate) => {
     const [tickets, setTickets] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
 
-    const PER_PAGE = 3;
+    const PER_PAGE = 10;
     const offset = currentPage * PER_PAGE;
 
     const handleCreateTicket = () => {
