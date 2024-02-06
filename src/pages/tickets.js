@@ -8,7 +8,7 @@ import ReactPaginate from 'react-paginate';
 const fetchTickets = async (setTickets, navigate) => {
     try{
         const token = Cookies.get('token');
-        const response = await axios.get('http://localhost:8000/tickets', {
+        const response = await axios.get(process.env.REACT_APP_API_URL+'tickets', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -44,7 +44,7 @@ const fetchTickets = async (setTickets, navigate) => {
       if(confirmDelete){
         const token = Cookies.get('token');
         try{
-        const response = await axios.delete(`http://localhost:8000/ticket/${id}`, {
+        const response = await axios.delete(`${process.env.REACT_APP_API_URL}ticket/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

@@ -25,7 +25,7 @@ const CreateTicket = () => {
       data.append('priority', priority);
       data.append('attachment', attachment);
       data.append('status', 'Reported');
-      await axios.post('http://localhost:8000/ticket', data, {
+      await axios.post(process.env.REACT_APP_API_URL+'ticket', data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

@@ -8,6 +8,7 @@ import CreateTicket from './pages/createticket';
 import UpdateTicket from './pages/updateTicket';
 import reportWebVitals from './reportWebVitals';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Router>

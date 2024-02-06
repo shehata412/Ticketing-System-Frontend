@@ -15,7 +15,7 @@ const UpdateTicket = () => {
   useEffect(() => {
     const fetchTicket = async () => {
       const token = cookie.get('token');
-      const response = await axios.get(`http://localhost:8000/ticket/${id}`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}ticket/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -41,7 +41,7 @@ const UpdateTicket = () => {
       data.append('priority', priority);
       data.append('attachment', attachment);
       data.append('status', 'Reported');
-      await axios.patch(`http://localhost:8000/ticket/${id}`, data, {
+      await axios.patch(`${process.env.REACT_APP_API_URL}ticket/${id}`, data, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
