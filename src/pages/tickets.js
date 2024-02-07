@@ -74,7 +74,7 @@ const fetchTickets = async (setTickets, navigate) => {
     <div className="container mx-auto px-4 py-6">
      <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />   
     <div className="flex items-center justify-between mb-6">
-    <h1 className="text-2xl font-semibold">Ticket</h1>
+    <h1 className="text-2xl font-semibold">Tickets</h1>
     <Link to="/createticket">
         <button onClick={handleCreateTicket} className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white">
             Create New Ticket
