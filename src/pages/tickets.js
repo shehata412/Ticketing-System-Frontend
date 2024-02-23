@@ -171,26 +171,28 @@ const Tickets = () => {
                       {ticket.status}
                     </td>
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                      <button
-                        onClick={() => handleUpdateTicket(ticket.id)}
-                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2"
-                      >
-                        Update
-                      </button>
-                      <button
-                        onClick={() => handleDeleteTicket(ticket.id)}
-                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2 text-red-500"
-                      >
-                        Delete
-                      </button>
-                      {isAdmin && (
+                      <div className="flex">
                         <button
-                          onClick={() => handleClosedTicket(ticket.id)}
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 text-green-500"
+                          onClick={() => handleUpdateTicket(ticket.id)}
+                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2"
                         >
-                          Closed
+                          Update
                         </button>
-                      )}
+                        <button
+                          onClick={() => handleDeleteTicket(ticket.id)}
+                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2 text-red-500"
+                        >
+                          Delete
+                        </button>
+                        {isAdmin && (
+                          <button
+                            onClick={() => handleClosedTicket(ticket.id)}
+                            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 text-green-500"
+                          >
+                            Closed
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );
