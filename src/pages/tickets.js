@@ -79,7 +79,7 @@ const Tickets = () => {
   const handleClosedTicket = async (id) => {
     const token = Cookies.get("token");
     try {
-      const response = await axios.patch(
+      await axios.patch(
         `${process.env.REACT_APP_API_URL}ticket/status/${id}`,
         {},
         {
