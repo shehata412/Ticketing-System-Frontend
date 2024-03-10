@@ -4,7 +4,12 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 
-const fetchTickets = async (setTickets, navigate, setIsAdmin) => {
+const fetchTickets = async (
+  setTickets,
+  navigate,
+  setIsAdmin,
+  filteredStatus
+) => {
   try {
     const token = Cookies.get("token");
     const response = await axios.get(
@@ -15,6 +20,13 @@ const fetchTickets = async (setTickets, navigate, setIsAdmin) => {
         },
       }
     );
+    if (filteredStatus !== "All") {
+      const filteredTickets = response.data.tickets.filter(
+        (ticket) => ticket.status === filteredStatus
+      );
+      setTickets(filteredTickets);
+      return;
+    }
     setTickets(response.data.tickets);
     if (response.data.isAdmin) {
       setIsAdmin(true);
@@ -34,6 +46,7 @@ const Tickets = () => {
   const [tickets, setTickets] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [filteredStatus, setFilteredStatus] = useState("All");
 
   const PER_PAGE = 10;
   const offset = currentPage * PER_PAGE;
@@ -62,7 +75,7 @@ const Tickets = () => {
           }
         );
         alert(response.data.msg);
-        fetchTickets(setTickets, navigate, setIsAdmin);
+        fetchTickets(setTickets, navigate, setIsAdmin, filteredStatus);
       } catch (err) {
         if (err.response && err.response.status === 401) {
           // 401 Unauthorized
@@ -88,7 +101,7 @@ const Tickets = () => {
           },
         }
       );
-      fetchTickets(setTickets, navigate, setIsAdmin);
+      fetchTickets(setTickets, navigate, setIsAdmin, filteredStatus);
     } catch (err) {
       if (err.response && err.response.status === 401) {
         // 401 Unauthorized
@@ -100,8 +113,8 @@ const Tickets = () => {
   };
 
   useEffect(() => {
-    fetchTickets(setTickets, navigate, setIsAdmin);
-  }, [currentPage, navigate]);
+    fetchTickets(setTickets, navigate, setIsAdmin, filteredStatus);
+  }, [currentPage, navigate, filteredStatus]);
 
   const sortedTickets = [...tickets].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -114,14 +127,26 @@ const Tickets = () => {
       <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-semibold">Tickets</h1>
-        <Link to="/createticket">
-          <button
-            onClick={handleCreateTicket}
-            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white"
+        <div>
+          <p className="inline-block mr-2">Status: </p>
+          <select
+            value={filteredStatus}
+            onChange={(e) => setFilteredStatus(e.target.value)}
+            className="border border-gray-300 rounded-md text-gray-600 h-10 pl-2  bg-white hover:border-gray-400 focus:outline-none mr-4"
           >
-            Create New Ticket
-          </button>
-        </Link>
+            <option value="All">All</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Reported">Reported</option>
+          </select>
+          <Link to="/createticket">
+            <button
+              onClick={handleCreateTicket}
+              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white"
+            >
+              Create New Ticket
+            </button>
+          </Link>
+        </div>
       </div>
       <div className="border rounded-lg w-full">
         <div className="relative w-full overflow-auto">
