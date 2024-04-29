@@ -3,6 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
+import { Changelang } from "../components/Changelang";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const fetchTickets = async (
   setTickets,
@@ -42,6 +45,8 @@ const fetchTickets = async (
 };
 
 const Tickets = () => {
+  const { t } = useTranslation();
+  const lng = i18n.language;
   const navigate = useNavigate();
   const [tickets, setTickets] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -125,25 +130,26 @@ const Tickets = () => {
   return (
     <div className="container mx-auto px-4 py-6">
       <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />
+      <Changelang color="black" />
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-semibold">Tickets</h1>
-        <div>
-          <p className="inline-block mr-2">Status: </p>
+        <h1 className="text-2xl font-semibold">{t("tickets")}</h1>
+        <div className="flex flex-col sm:flex-row items-center justify-between mb-6">
+          <p className="inline-block mr-2">{t("status")}: </p>
           <select
             value={filteredStatus}
             onChange={(e) => setFilteredStatus(e.target.value)}
             className="border border-gray-300 rounded-md text-gray-600 h-10 pl-2  bg-white hover:border-gray-400 focus:outline-none mr-4"
           >
-            <option value="All">All</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Reported">Reported</option>
+            <option value="All">{t("all")}</option>
+            <option value="Resolved">{t("resolved")}</option>
+            <option value="Reported">{t("reported")}</option>
           </select>
           <Link to="/createticket">
             <button
               onClick={handleCreateTicket}
               className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white"
             >
-              Create New Ticket
+              {t("createnewticket")}
             </button>
           </Link>
         </div>
@@ -153,23 +159,41 @@ const Tickets = () => {
           <table className="w-full caption-bottom text-sm">
             <thead className="[&amp;_tr]:border-b">
               <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Date
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
+                >
+                  {t("date")}
                 </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Title
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
+                >
+                  {t("title")}
                 </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Description
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
+                >
+                  {t("description")}
                 </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Priority
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
+                >
+                  {t("priority")}
                 </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Status
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
+                >
+                  {t("status")}
                 </th>
-                <th className="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
-                  Actions
+                <th
+                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
+                >
+                  {t("actions")}
                 </th>
               </tr>
             </thead>
@@ -190,10 +214,10 @@ const Tickets = () => {
                       {ticket.description}
                     </td>
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                      {ticket.priority}
+                      {t(ticket.priority.toLowerCase())}
                     </td>
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                      {ticket.status}
+                      {t(ticket.status.toLowerCase())}
                     </td>
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                       <div className="flex">
@@ -201,20 +225,20 @@ const Tickets = () => {
                           onClick={() => handleUpdateTicket(ticket.id)}
                           className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2"
                         >
-                          Update
+                          {t("update")}
                         </button>
                         <button
                           onClick={() => handleDeleteTicket(ticket.id)}
                           className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2 text-red-500"
                         >
-                          Delete
+                          {t("delete")}
                         </button>
                         {isAdmin && (
                           <button
                             onClick={() => handleClosedTicket(ticket.id)}
                             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 text-green-500"
                           >
-                            Closed
+                            {t("closed")}
                           </button>
                         )}
                       </div>
@@ -225,8 +249,8 @@ const Tickets = () => {
             </tbody>
           </table>
           <ReactPaginate
-            previousLabel={"← Previous"}
-            nextLabel={"Next →"}
+            previousLabel={t("previous")}
+            nextLabel={t("next")}
             pageCount={Math.ceil(tickets.length / PER_PAGE)}
             onPageChange={({ selected: selectedPage }) =>
               setCurrentPage(selectedPage)

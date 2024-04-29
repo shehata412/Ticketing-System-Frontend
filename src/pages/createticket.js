@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import cookie from 'js-cookie';
 import TicketForm from '../components/TicketForm';
-
+import { Changelang } from '../components/Changelang';
 const CreateTicket = () => {
 
 
@@ -34,7 +34,10 @@ const CreateTicket = () => {
   
   
     return (
+      <>
+      <Changelang />
       <TicketForm onSubmit={handleSubmit}  />
+      </>
     )
 }
 

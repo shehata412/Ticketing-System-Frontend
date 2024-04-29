@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
 
 const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
   const navigate = useNavigate();
@@ -10,6 +12,8 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
   );
   const [priority, setPriority] = useState(initialValues.priority || "low");
   const [attachment, setAttachment] = useState(initialValues.attachment || "");
+  const { t } = useTranslation();
+  const lang = i18n.language;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,14 +33,23 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen p-4">
-      <button
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute left-4 top-4"
-        onClick={() => navigate("/tickets")}
-      >
-        Back
-      </button>
+      {lang === "en" ? (
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute left-4 top-4"
+          onClick={() => navigate("/tickets")}
+        >
+          {t("back")}
+        </button>
+      ) : (
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute right-4 top-4"
+          onClick={() => navigate("/tickets")}
+        >
+          {t("back")}
+        </button>
+      )}
       <img src="/mts.png" alt="Logo" className="mx-auto h-24 w-24" />
-      <h1 className="text-2xl font-bold mb-4">Create Ticket</h1>
+      <h1 className="text-2xl font-bold mb-4">{t("createticket")}</h1>
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md ">
         <form className="space-y-4">
           <div className="space-y-2">
@@ -44,13 +57,13 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               htmlFor="title"
             >
-              Title
+              {t("title")}
             </label>
             <input
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               id="title"
               value={title}
-              placeholder="Enter ticket title"
+              placeholder={t("entertickettitle")}
               required
               onChange={(e) => setTitle(e.target.value)}
             />
@@ -60,12 +73,12 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               htmlFor="description"
             >
-              Description
+              {t("description")}
             </label>
             <textarea
               className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
               id="description"
-              placeholder="Enter ticket description"
+              placeholder={t("enterticketdescription")}
               value={description}
               required
               onChange={(e) => setDescription(e.target.value)}
@@ -76,7 +89,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               htmlFor="priority"
             >
-              Priority
+              {t("priority")}
             </label>
             <div className="relative">
               <button
@@ -91,7 +104,9 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
                 data-state="closed"
                 className="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full"
               >
-                <span style={{ PointerEvents: "none" }}>{priority}</span>
+                <span style={{ PointerEvents: "none" }}>
+                  {t(priority.toLowerCase())}
+                </span>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -118,7 +133,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
                       setIsOpen(false);
                     }}
                   >
-                    low
+                    {t("low")}
                   </button>
                   <button
                     className="w-full text-left my-1 border-b border-input px-3 py-2"
@@ -128,7 +143,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
                       setIsOpen(false);
                     }}
                   >
-                    medium
+                    {t("medium")}
                   </button>
                   <button
                     className="w-full text-left my-1 border-b border-input px-3 py-2"
@@ -138,7 +153,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
                       setIsOpen(false);
                     }}
                   >
-                    high
+                    {t("high")}
                   </button>
                 </div>
               )}
@@ -149,7 +164,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
               className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               htmlFor="attachment"
             >
-              Attachment
+              {t("attachment")}
             </label>
             <input
               className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
@@ -162,7 +177,7 @@ const TicketForm = ({ onSubmit, initialValues = {}, isUpdate = false }) => {
             onClick={handleSubmit}
             className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white w-full"
           >
-            {isUpdate ? "Update Ticket" : "Create Ticket"}
+            {isUpdate ? t("updateticket") : t("createticket")}
           </button>
         </form>
       </div>

@@ -3,15 +3,13 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import i18n from "i18next";
+import { Changelang } from "../components/Changelang";
 
 const Login = () => {
   const { t } = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-  
-  
 
   const navigate = useNavigate();
 
@@ -39,19 +37,10 @@ const Login = () => {
     }
   };
 
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    document.documentElement.setAttribute('dir', lng === 'ar' ? 'rtl' : 'ltr');
-  };
-
   return (
     <div className="flex h-screen w-full items-center justify-center bg-[#0a192f]">
       <div className="w-full max-w-xs">
-      <div className="absolute top-0 right-0 p-4 ">
-          <button style={{color: 'white', fontWeight: 'bold', margin: 5}} onClick={() => changeLanguage('en')}>EN</button>
-          <span style={{color: 'white', fontWeight: 'bold', margin: 5}}>/</span>
-          <button style={{color: 'white', fontWeight: 'bold', margin: 5}} onClick={() => changeLanguage('ar')}>AR</button>
-        </div>
+        <Changelang color="white" />
         <form className="bg-transparent px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
             <img src="/mts.png" alt="Logo" className="mx-auto h-30 w-30" />
