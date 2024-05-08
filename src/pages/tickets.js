@@ -165,6 +165,14 @@ const Tickets = () => {
                 >
                   {t("date")}
                 </th>
+                {isAdmin && (
+                  <th
+                    style={{ textAlign: lng === "ar" ? "right" : "left" }}
+                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
+                  >
+                    {t("User")}
+                  </th>
+                )}
                 <th
                   style={{ textAlign: lng === "ar" ? "right" : "left" }}
                   className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
@@ -207,6 +215,11 @@ const Tickets = () => {
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                       {ticket.createdAt.split("T")[0]}
                     </td>
+                    {
+                      isAdmin && <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                      {ticket.User.username}
+                    </td>
+                    }
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                       {ticket.title}
                     </td>
