@@ -217,7 +217,7 @@ const Tickets = () => {
                     </td>
                     {
                       isAdmin && <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                      {ticket.User.username}
+                      {ticket.User.username || "Anonymous"}
                     </td>
                     }
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
