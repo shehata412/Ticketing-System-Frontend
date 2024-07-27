@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { Changelang } from "../components/Changelang";
-import { StandardButton} from "../components/StandardButton";
+import  StandardButton from "../components/StandardButton";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 
