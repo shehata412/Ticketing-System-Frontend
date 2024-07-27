@@ -5,6 +5,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { Changelang } from "../components/Changelang";
 import  StandardButton from "../components/StandardButton";
+import TicketActionButton from "../components/TicketActionButton";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 
@@ -230,25 +231,10 @@ const Tickets = () => {
                     </td>
                     <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
                       <div className="flex">
-                        <button
-                          onClick={() => handleUpdateTicket(ticket.id)}
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2"
-                        >
-                          {t("update")}
-                        </button>
-                        <button
-                          onClick={() => handleDeleteTicket(ticket.id)}
-                          className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 mr-2 text-red-500"
-                        >
-                          {t("delete")}
-                        </button>
+                        <TicketActionButton onClick={() => handleUpdateTicket(ticket.id)} label={t("update")} color="text-black"/>
+                        <TicketActionButton onClick={() => handleDeleteTicket(ticket.id)} label={t("delete")} color="text-red-500"/>
                         {isAdmin && (
-                          <button
-                            onClick={() => handleClosedTicket(ticket.id)}
-                            className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 text-green-500"
-                          >
-                            {t("closed")}
-                          </button>
+                            <TicketActionButton onClick={() => handleClosedTicket(ticket.id)} label={t("closed")} color="text-green-500"/>
                         )}
                       </div>
                     </td>
