@@ -155,81 +155,74 @@ const Tickets = () => {
         <div className="relative w-full overflow-auto">
           <table className="w-full caption-bottom text-sm">
             <thead className="[&amp;_tr]:border-b">
-              <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
-                >
-                  {t("date")}
-                </th>
-                {isAdmin && (
+            <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("date")}
+              </th>
+              {isAdmin && (
                   <th
-                    style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                    className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
+                      className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
                   >
                     {t("User")}
                   </th>
-                )}
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
-                >
-                  {t("title")}
-                </th>
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
-                >
-                  {t("description")}
-                </th>
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
-                >
-                  {t("priority")}
-                </th>
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground"
-                >
-                  {t("status")}
-                </th>
-                <th
-                  style={{ textAlign: lng === "ar" ? "right" : "left" }}
-                  className="h-12 px-4 text-left align-middle font-medium text-muted-foreground "
-                >
-                  {t("actions")}
-                </th>
-              </tr>
+              )}
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("title")}
+              </th>
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("description")}
+              </th>
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("priority")}
+              </th>
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("status")}
+              </th>
+              <th
+                  className={`table-head ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}
+              >
+                {t("actions")}
+              </th>
+            </tr>
             </thead>
             <tbody className="[&amp;_tr:last-child]:border-0">
-              {currentPageData.reverse().map((ticket, index) => {
-                return (
+            {currentPageData.reverse().map((ticket, index) => {
+              return (
                   <tr
-                    key={index}
-                    className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
+                      key={index}
+                      className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted"
                   >
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       {ticket.createdAt.split("T")[0]}
                     </td>
                     {
-                      isAdmin && <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
-                      {ticket.User.username || "Anonymous"}
-                    </td>
+                        isAdmin && <td className="table-cell">
+                          {ticket.User.username || "Anonymous"}
+                        </td>
                     }
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       {ticket.title}
                     </td>
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       {ticket.description}
                     </td>
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       {t(ticket.priority.toLowerCase())}
                     </td>
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       {t(ticket.status.toLowerCase())}
                     </td>
-                    <td className="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                    <td className={`table-cell ${lng === "ar" ? "text-align-rtl" : "text-align-ltr"}`}>
                       <div className="flex">
                         <TicketActionButton onClick={() => handleUpdateTicket(ticket.id)} label={t("update")} color="text-black"/>
                         <TicketActionButton onClick={() => handleDeleteTicket(ticket.id)} label={t("delete")} color="text-red-500"/>

@@ -26,5 +26,6 @@
   "createticket": "إنشاء تذكرة",
   "entertickettitle": "أدخل عنوان التذكرة",
   "enterticketdescription": "أدخل وصف التذكرة",
-  "updateticket": "تحديث التذكرة"
+  "updateticket": "تحديث التذكرة",
+  "User": "المستخدم"
 }

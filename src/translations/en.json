@@ -26,5 +26,6 @@
   "createticket": "Create Ticket",
   "entertickettitle": "Enter Ticket Title",
   "enterticketdescription": "Enter Ticket Description",
-  "updateticket": "Update Ticket"
+  "updateticket": "Update Ticket",
+  "User": "User"
 }

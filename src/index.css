@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.table-cell{
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.table-head{
+    height: 3rem;
+    padding: 1rem;
+    vertical-align: middle;
+    font-weight: bold;
+}
+.text-align-rtl {
+    text-align: right;
+}
+
+.text-align-ltr {
+    text-align: left;
+}
