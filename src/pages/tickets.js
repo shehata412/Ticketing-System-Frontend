@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import ReactPaginate from "react-paginate";
 import { Changelang } from "../components/Changelang";
+import { StandardButton} from "../components/StandardButton";
 import { useTranslation } from "react-i18next";
 import i18n from "i18next";
 
@@ -145,12 +146,7 @@ const Tickets = () => {
             <option value="Reported">{t("reported")}</option>
           </select>
           <Link to="/createticket">
-            <button
-              onClick={handleCreateTicket}
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-blue-500 text-white"
-            >
-              {t("createnewticket")}
-            </button>
+            <StandardButton onClick={handleCreateTicket} label={t("createnewticket")}/>
           </Link>
         </div>
       </div>
